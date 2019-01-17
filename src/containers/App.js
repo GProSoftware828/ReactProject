@@ -3,6 +3,7 @@ import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 
 class App extends Component {
   state = {
@@ -64,13 +65,13 @@ class App extends Component {
     }
 
     return (
-      <div className={classes.App} >
+      <WithClass classes={classes.App}>
         <ErrorBoundary><Cockpit
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler} /></ErrorBoundary>
         {persons}
-      </div >
+      </WithClass>
     );
     //return React.createElement('div', { className: 'App' }, 'Hi, I\'m a React app!')
   }
