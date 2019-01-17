@@ -1,0 +1,7 @@
+:global .bold {
+  font-weight: bold;
+}
+
+:global .red {
+  color: red;
+}

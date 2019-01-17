@@ -1,4 +1,4 @@
-.App {
+.Cockpit {
   text-align: center;
 }
   button {
@@ -22,11 +22,3 @@
     background-color: teal;
     color: black;
   }
-
-:global .red {
-  color: red;
-}
-
-:global .bold {
-  font-weight: bold;
-}
