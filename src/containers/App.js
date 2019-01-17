@@ -1,20 +1,26 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from '../hoc/Aux';
 import WithClass from '../hoc/WithClass';
 
-class App extends Component {
-  state = {
-    persons: [
-      { id: "1", name: "George", age: "Age 30" },
-      { id: "2", name: "Shanhs", age: "Age 25" },
-      { id: "3", name: "Stephanie", age: "Age 26" }
-    ],
-    otherState: 'some other value',
-    showPersons: false,
-    authenticated: false
+export const AuthContext = React.createContext(false);
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      persons: [
+        { id: "1", name: "George", age: "Age 30" },
+        { id: "2", name: "Shanhs", age: "Age 25" },
+        { id: "3", name: "Stephanie", age: "Age 26" }
+      ],
+      otherState: 'some other value',
+      showPersons: false,
+      authenticated: false
+    }
   }
 
   nameChangedHandler = (event, id) => {
@@ -57,7 +63,7 @@ class App extends Component {
   }
 
   loginHandler = () => {
-    this.UNSAFE_componentWillMount.setState({ authenticated: true })
+    this.setState({ authenticated: true });
   }
 
   render() {
@@ -82,12 +88,15 @@ class App extends Component {
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler} /></ErrorBoundary>
-        {persons}
+        <AuthContext.Provider value={this.state.authenticated}>
+          {persons}
+        </AuthContext.Provider>
       </WithClass>
     );
     //return React.createElement('div', { className: 'App' }, 'Hi, I\'m a React app!')
   }
 }
+
 
 //higher-order component:
 export default App;
