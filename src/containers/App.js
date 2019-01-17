@@ -13,7 +13,8 @@ class App extends Component {
       { id: "3", name: "Stephanie", age: "Age 26" }
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    authenticated: false
   }
 
   nameChangedHandler = (event, id) => {
@@ -47,7 +48,16 @@ class App extends Component {
   togglePersonsHandler = () => {
     //this syntax has working this keyword to class
     const doesShow = this.state.showPersons;
-    this.setState({ showPersons: !doesShow });
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      }
+    });
+  }
+
+  loginHandler = () => {
+    this.UNSAFE_componentWillMount.setState({ authenticated: true })
   }
 
   render() {
@@ -60,7 +70,9 @@ class App extends Component {
         <Persons
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
+          login={this.loginHandler}
           changed={this.nameChangedHandler}
+          isAuthenticated={this.state.authenticated}
         />
     }
 
